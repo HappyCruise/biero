@@ -1,16 +1,22 @@
 <template>
   <div id="app">
+    <HeaderBar />
     <FrontPage :title="'Biero'" />
+    <FooterBar />
   </div>
 </template>
 
 <script>
 
 import FrontPage from '@/components/FrontPage';
+import FooterBar from '@/components/FooterBar';
+import HeaderBar from '@/components/HeaderBar';
 
 export default {
 	name: 'App',
 	components: {
+		HeaderBar,
+		FooterBar,
 		FrontPage,
 	}
 };
