@@ -8,7 +8,7 @@ router.get('/beers', function(req,res){
 	let sql = 'SELECT * FROM Olut';
 	(async() => {
 		try {
-			await conn.query(sql, (err, result, fields) => {
+			await conn.query(sql, (err, result) => {
 				res.send(result);
 			});
 		}catch(err){

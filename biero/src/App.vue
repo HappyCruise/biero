@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <SearchForm :searchTitle="'Biero'" />
-    <BeerList />
+    <FrontPage :title="'Biero'" />
   </div>
 </template>
 
 <script>
-import SearchForm from './components/SearchForm.vue';
-import BeerList from '@/components/BeerList';
+
+import FrontPage from '@/components/FrontPage';
 
 export default {
 	name: 'App',
 	components: {
-		BeerList,
-		SearchForm
+		FrontPage,
 	}
 };
 </script>
@@ -27,6 +25,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 60px auto;
-  width: 980px;
+  width: 720px;
+  padding: 10px;
 }
 </style>

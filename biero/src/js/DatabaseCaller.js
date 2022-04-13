@@ -3,6 +3,11 @@ export async function getAllBeers() {
 	console.log('GET ALL BEERS');
 	return response.json();
 }
+//Searches by given parameter and value
+export async function getBeersBy(tag, value){
+	const response = await fetch(`/api/beers?${tag}=${value}`);
+	return response.json();
+}
 
 export async function createBeer(data) {
 	const response = await fetch('api/beer', {

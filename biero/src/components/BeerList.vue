@@ -1,6 +1,5 @@
 <template>
   <div>
-   <button @click="getAllBeers">Hae kaljaa</button>
   <table>
     <thead>
       <th>ID</th>
@@ -8,6 +7,7 @@
       <th>Kuvaus</th>
     </thead>
     <tbody>
+      <!--  Loop trough beers to fill table  -->
       <tr v-for="beer in beers" :key="beer.id">
         <td>{{ beer.id }}</td>
         <td> {{ beer.nimi }}</td>
@@ -19,23 +19,12 @@
   </div>
 </template>
 <script>
-import {getAllBeers} from '@/DatabaseCaller';
 
 export default{
 	name: 'BeerList',
-	data(){
-		return{
-			beers :[],
-			numberOfBeers: 0
-		};
-	},
-	methods:{
-		getAllBeers() {
-			getAllBeers().then(response => {
-				this.beers = response;
-				this.numberOfBeers = response.length;
-			});
-		}
+	props: {
+		beers: Array,
+		numberOfBeers: Number
 	}
 };
 
