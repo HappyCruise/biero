@@ -1,0 +1,39 @@
+DROP DATABASE IF EXISTS bieroDB;
+CREATE DATABASE bieroDB;
+USE bieroDB;
+
+
+
+CREATE TABLE Tyyppi(
+	id INT NOT NULL AUTO_INCREMENT,
+	nimi VARCHAR(20),
+	PRIMARY KEY ( id )
+);
+CREATE TABLE Olut(
+	id INT NOT NULL AUTO_INCREMENT, 
+	nimi VARCHAR(30) NOT NULL,
+	kuvaus VARCHAR(255),
+	maku VARCHAR(15),
+	tyyppi INT NOT NULL,
+	kuvaURL VARCHAR(100),
+	PRIMARY KEY ( id ),
+	FOREIGN KEY ( tyyppi ) REFERENCES Tyyppi(id)
+);
+
+
+
+CREATE TABLE Users(
+	id INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(20) NOT NULL,
+	password VARCHAR(40) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE Lista(
+	userID int NOT NULL,
+	olutID int NOT NULL,
+	PRIMARY KEY( userID, olutID ),
+	FOREIGN KEY ( userID ) REFERENCES Users(id),
+	FOREIGN KEY ( olutID ) REFERENCES Olut(id)
+);
