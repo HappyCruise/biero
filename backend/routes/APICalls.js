@@ -25,8 +25,8 @@ router.get('/beer', function(req,res) {
 
 	if(typeof q.param == 'string'){
 		sql +=
-			`Olut.nimi = '${q.param}' OR `+
-			`Olut.tyyppi = (SELECT id FROM tyyppi WHERE nimi = '${q.param}')`;
+			`Olut.nimi LIKE '%${q.param}%' OR `+
+			`Olut.tyyppi = (SELECT id FROM tyyppi WHERE nimi LIKE '%${q.param}%')`;
 	}else{
 		sql += `Olut.id = ${q.param}`;
 	}
