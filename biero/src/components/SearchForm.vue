@@ -1,11 +1,11 @@
 <template>
   <div>
-    <form>
+    <form onsubmit="return false">
       <h2 id="title">{{ searchTitle }}</h2>
       <label for="helloInput">{{searchParam}}</label>
       <input id="helloInput" v-model="searchParam" />
+      <button @click="$emit('getBeer', searchParam)">Get Beer</button>
     </form>
-    <button @click="$emit('getBeer', searchParam)">Get Beer</button>
   </div>
 </template>
 <script>
