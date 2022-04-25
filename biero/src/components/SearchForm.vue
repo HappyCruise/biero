@@ -2,10 +2,10 @@
   <div>
     <form>
       <h2 id="title">{{ searchTitle }}</h2>
-      <label for="helloInput">{{text}}</label>
-      <input id="helloInput" v-model="text" />
-
+      <label for="helloInput">{{searchParam}}</label>
+      <input id="helloInput" v-model="searchParam" />
     </form>
+    <button @click="$emit('getBeer', searchParam)">Get Beer</button>
   </div>
 </template>
 <script>
@@ -15,7 +15,7 @@ export default {
 	},
 	data(){
 		return{
-			text: 'Hello'
+			searchParam: 'Hello'
 		};
 	}
 };

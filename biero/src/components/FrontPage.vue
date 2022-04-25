@@ -1,7 +1,6 @@
 <template>
 <div>
-  <SearchForm :searchTitle="title" />
-  <button @click="getBeers">Get Beer</button>
+  <SearchForm @getBeer="findBeer" :searchTitle="title" />
   <BeerList :beers="beers" />
   <p v-if="numberOfBeers">Beers found: {{ numberOfBeers }}</p>
 </div>
@@ -9,7 +8,7 @@
 <script>
 import SearchForm from '@/components/SearchForm';
 import BeerList from '@/components/BeerList';
-import {getAllBeers} from '@/js/DatabaseCaller';
+import {getAllBeers, getBeer} from '@/js/DatabaseCaller';
 
 export default {
 	name: 'FrontPage',
@@ -24,6 +23,13 @@ export default {
 		};
 	},
 	methods:{
+		async findBeer(searchParam){
+			console.log(searchParam);
+			let foundBeers = await getBeer(searchParam);
+			this.beers = foundBeers;
+			this.numberOfBeers = foundBeers.length;
+		}
+		,
 		getBeers(){
 			getAllBeers().then(result => {
 				this.beers = result;

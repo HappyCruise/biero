@@ -4,8 +4,8 @@ export async function getAllBeers() {
 	return response.json();
 }
 //Searches by given parameter and value
-export async function getBeersBy(tag, value){
-	const response = await fetch(`/api/beers?${tag}=${value}`);
+export async function getBeer(value){
+	const response = await fetch(`/api/beer?param=${value}`);
 	return response.json();
 }
 
