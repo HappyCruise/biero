@@ -1,5 +1,6 @@
 <template>
 <div>
+  <button @click="toggleAdmin">Admin Mode</button>
   <SearchForm @getBeer="findBeer" :searchTitle="title" />
   <BeerList :beers="beers" :adminMode="adminMode" />
 
@@ -8,7 +9,7 @@
 <script>
 import SearchForm from '@/components/SearchForm';
 import BeerList from '@/components/BeerList';
-import {getAllBeers, getBeer} from '@/js/DatabaseCaller';
+import {getBeer} from '@/js/DatabaseCaller';
 
 export default {
 	name: 'FrontPage',
@@ -18,12 +19,9 @@ export default {
 	},
 	data: function() {
 		return {
-
 			beers: [],
 			numberOfBeers: null,
 			adminMode: true
-			
-
 		};
 	},
 	methods:{
@@ -34,11 +32,8 @@ export default {
 			this.numberOfBeers = foundBeers.length;
 		}
 		,
-		getBeers(){
-			getAllBeers().then(result => {
-				this.beers = result;
-				this.numberOfBeers = result.length;
-			});
+		toggleAdmin(){
+			this.adminMode = !this.adminMode;
 		}
 	}
 };
