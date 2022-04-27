@@ -1,8 +1,8 @@
 <template>
 <div>
   <SearchForm @getBeer="findBeer" :searchTitle="title" />
-  <BeerList :beers="beers" />
-  <p v-if="numberOfBeers">Beers found: {{ numberOfBeers }}</p>
+  <BeerList :beers="beers" :adminMode="adminMode" />
+
 </div>
 </template>
 <script>
@@ -18,8 +18,12 @@ export default {
 	},
 	data: function() {
 		return {
+
 			beers: [],
 			numberOfBeers: null,
+			adminMode: true
+			
+
 		};
 	},
 	methods:{
