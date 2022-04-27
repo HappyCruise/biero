@@ -7,7 +7,8 @@
       <th>Kuvaus</th>
       <th>Maku</th>
     </thead>
-    <tbody>
+    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
+    <tbody v-else>
       <!--  Loop trough beers to fill table  -->
       <tr v-for="beer in beers" :key="beer.id">
         <td>{{ beer.id }}</td>
@@ -17,24 +18,57 @@
         <td> {{beer.tyyppi}}</td>
         <img class="olut-img" :src=beer.kuvaURL >
 
-        <button v-if="adminMode">Edit</button>
-        <button v-if="adminMode">Delete</button>
-        <button v-else>Add</button>
+        <button v-if="adminMode" @click="editBeer(beer.id)">Edit</button>
+        <button v-if="adminMode" @click="deleteBeer(beer.id)">Delete</button>
+        <button v-else>Add to List</button>
+
       </tr>
+      <ConfirmBox @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
+      <p v-if="beers.length">Beers found: {{ beers.length }}</p>
+      <p v-if="beers.length === 0">No beers found!</p>
     </tbody>
-    <p v-if="beers.length">Beers found: {{ beers.length }}</p>
-    <p v-if="beers.length === 0">No beers found!</p>
+
+
   </table>
   </div>
 </template>
 <script>
 
+import BeerEdit from '@/components/BeerEdit';
+import { deleteBeer } from '@/js/DatabaseCaller';
+import ConfirmBox from '@/components/ConfirmBox';
 export default{
 	name: 'BeerList',
+	components: {ConfirmBox, BeerEdit},
 	props: {
 		beers: Array,
 		adminMode: Boolean
-		
+	},
+	data(){
+		return {
+			editMode: false,
+			beerToEdit: {},
+			beerToDelete: null
+		};
+	},
+	methods: {
+		editBeer(id){
+			this.beerToEdit= this.beers[id -1];
+			this.editMode = true;
+		},
+		handleConfirm(response){
+			console.log('CONFIRMATION ' + response);
+			if(response === true){
+				deleteBeer(this.beerToDelete);
+			}else{
+				this.beerToDelete = null;
+			}
+		},
+		deleteBeer(id){
+			this.beerToDelete = id;
+			let confirm = this.$refs.confirm;
+			confirm.open();
+		}
 	}
 };
 

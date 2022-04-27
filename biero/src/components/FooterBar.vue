@@ -17,7 +17,6 @@
     width: 100%;
     left: 0;
     right: 0;
-    bottom: 0;
   }
   #footer-container{
     margin: auto;

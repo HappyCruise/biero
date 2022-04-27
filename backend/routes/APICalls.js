@@ -58,8 +58,58 @@ router.get('/beer/types', function(req,res){
 		}
 	})();
 });
-/*GET LIST BY USER*/
 
+
+/*UPDATE BEER*/
+router.put('/beer', function(req,res){
+
+	let sql = 'UPDATE olut SET '+
+	`nimi = '${req.body.nimi}', kuvaus = '${req.body.kuvaus}', `+
+	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi} `+
+	`WHERE olut.id  = ${req.body.id}`;
+	console.log(sql);
+	(async () => {
+		try{
+			await conn.query(sql, (err, result) => {
+				res.send(result);
+			});
+		}catch(err){
+			console.log(err);
+		}
+	})();
+
+});
+
+/* DELETE BEER */
+router.delete('/beer', function(req,res){
+	let q = url.parse(req.url, true).query;
+	if(!q.id){
+		console.log('No ID provided');
+		res.send('No ID');
+	}
+
+	//Clear all List values with beer that will be deleted. Then delete beer
+	let sql = `DELETE FROM Lista WHERE olutID = ${q.id}`;
+	let sql2 = `DELETE FROM Olut WHERE id = ${q.id}`;
+	(async () => {
+		try{
+			await conn.query(sql, (err, result) => {
+				console.log(result);
+			});
+		}catch(err){
+			console.log(err);
+		}
+
+		try{
+			await conn.query(sql2, (err, result) => {
+				res.send(result);
+			});
+		}catch(err){
+			console.log(err);
+		}
+	})();
+	console.log(sql);
+});
 //Console log the error
 function logError (err, route){
 	console.log('DATABASE ERROR ACCESSING api/'+route);
