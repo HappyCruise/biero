@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderBar />
-    <FrontPage :title="'Biero'" />
+    <FrontPage ref="frontPage" :title="'Biero'" />
     <FooterBar />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
 		HeaderBar,
 		FooterBar,
 		FrontPage,
-	}
+	},
 };
 </script>
 

@@ -9,7 +9,7 @@
 <script>
 import SearchForm from '@/components/SearchForm';
 import BeerList from '@/components/BeerList';
-import {getBeer} from '@/js/DatabaseCaller';
+import {getBeer, getList } from '@/js/DatabaseCaller';
 
 export default {
 	name: 'FrontPage',
@@ -26,14 +26,18 @@ export default {
 	},
 	methods:{
 		async findBeer(searchParam){
-			console.log(searchParam);
 			let foundBeers = await getBeer(searchParam);
 			this.beers = foundBeers;
 			this.numberOfBeers = foundBeers.length;
-		}
-		,
+		},
 		toggleAdmin(){
 			this.adminMode = !this.adminMode;
+		},
+		showUsersList: async function(){
+			//TODO: CHANGE 1 TO USER ID
+			let foundList = await getList(1);
+			this.beers = foundList;
+			this.numberOfBeers = foundList.length;
 		}
 	}
 };

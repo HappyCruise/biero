@@ -20,7 +20,7 @@
 
         <button v-if="adminMode" @click="editBeer(beer.id)">Edit</button>
         <button v-if="adminMode" @click="deleteBeer(beer.id)">Delete</button>
-        <button v-else>Add to List</button>
+        <button v-else @click="addToList">Add to List</button>
 
       </tr>
       <ConfirmBox @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>

@@ -1,11 +1,22 @@
 <template>
   <div id="header">
   <div id="header-container">
-
+<!--    <button @click="$emit('showUserBeerList')">My List</button>-->
+    <button @click="showOwnList">Oma Lista</button>
   </div>
   </div>
 </template>
-<script></script>
+<script>
+
+export default{
+	name: 'HeaderBar',
+	methods:{
+		showOwnList(){
+			this.$root.$refs.frontPage.showUsersList();
+		}
+	}
+};
+</script>
 <style scoped>
 #header{
   position: absolute;

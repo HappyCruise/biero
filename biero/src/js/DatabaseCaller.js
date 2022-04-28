@@ -60,14 +60,21 @@ export async function deleteBeer(id){
 
 
 /**
- * Find Beers in list by user id
+ * Aadd to user lists
  * @param id
- * @returns {Promise<void>}
+ * @param beer
+ * @returns {Promise<Response<any, Record<string, any>, number>>}
  */
-export async function getList(id){
+export async function addToList(id, beer){
 	const response = await fetch('api/list', {
 		method: 'POST',
 		headers: {'Content-Type':'application/json'},
-		body: JSON.stringify({id: id});
-	})
+		body: JSON.stringify({userID: id, beerID: beer}),
+	});
+	return response;
+}
+
+export async function getList(id){
+	const response = await fetch(`api/list/?userID=${id}`);
+	return response.json();
 }
