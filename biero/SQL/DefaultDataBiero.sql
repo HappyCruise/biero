@@ -7,10 +7,10 @@ VALUES( NULL, "Karhu", "Se klassine jumaltenjuoma", "iha ok", 2, "https://reddit
 (NULL, "Pirkka Parhaat IPA", "Maistuu paskalt ja kallist", "hyi", 3, "https://www.meatspin.com");
 
 INSERT INTO Users
-VALUES(NULL, "kape", "kapensalis"),(NULL, "leka","lekamyballs");
+VALUES(NULL, "admin", "admin1234");
 
 INSERT INTO Lista 
-VALUES(1, 3),(2,1),(2,2),(2,3);
+VALUES(1, 3),(1, 1);
 
 SELECT * FROM Tyyppi;
 SELECT * FROM Olut;
