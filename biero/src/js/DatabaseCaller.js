@@ -1,16 +1,28 @@
+/**
+ * Returns all beers
+ * @returns {Promise<any>}
+ */
 export async function getAllBeers() {
 	const response = await fetch('/api/beers');
-	console.log('GET ALL BEERS');
 	return response.json();
 }
-//Searches by given parameter and value
+
+//Returns all beers by given parameter and value
+/**
+ * Finds all beers with given search parameter
+ * @param value
+ * @returns {Promise<any>}
+ */
 export async function getBeer(value){
 	const response = await fetch(`/api/beer?param=${value}`);
 	return response.json();
 }
 
-
-
+/**
+ * Create beer
+ * @param data
+ * @returns {Promise<Response<any, Record<string, any>, number>>}
+ */
 export async function createBeer(data) {
 	const response = await fetch('api/beer', {
 		method: 'POST',
@@ -20,7 +32,11 @@ export async function createBeer(data) {
 	return response;
 }
 
-/*Edit beer*/
+/**
+ * Edit beer
+ * @param data
+ * @returns {Promise<Response<any, Record<string, any>, number>>}
+ */
 export async function editBeer(data){
 	const response = await fetch('api/beer', {
 		method: 'PUT',
@@ -30,11 +46,28 @@ export async function editBeer(data){
 	return response;
 }
 
-/*Delete beer with given id*/
+/**
+ * Delete beer with given id
+ * @param id
+ * @returns {Promise<Response<any, Record<string, any>, number>>}
+ */
 export async function deleteBeer(id){
-	console.log('ID: ' + id);
 	const response = await fetch(`api/beer?id=${id}`, {
 		method: 'DELETE'
 	});
 	return response;
+}
+
+
+/**
+ * Find Beers in list by user id
+ * @param id
+ * @returns {Promise<void>}
+ */
+export async function getList(id){
+	const response = await fetch('api/list', {
+		method: 'POST',
+		headers: {'Content-Type':'application/json'},
+		body: JSON.stringify({id: id});
+	})
 }
