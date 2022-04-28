@@ -37,7 +37,7 @@ router.get('/beer', function(req,res) {
 				res.send(result);
 			});
 		}catch(err){
-			logError(err, '/beer?param=');
+			logError(err, '/beer METHOD: GET WITH PARAMS');
 		}
 	})();
 
@@ -74,7 +74,7 @@ router.put('/beer', function(req,res){
 				res.send(result);
 			});
 		}catch(err){
-			console.log(err);
+			logError(err,'beer METHOD: PUT');
 		}
 	})();
 
@@ -97,7 +97,7 @@ router.delete('/beer', function(req,res){
 				console.log(result);
 			});
 		}catch(err){
-			console.log(err);
+			logError(err, 'beer METHOD: DELETE');
 		}
 
 		try{
@@ -109,6 +109,22 @@ router.delete('/beer', function(req,res){
 		}
 	})();
 	console.log(sql);
+});
+
+
+router.post('/list', function(req, res){
+	let sql = 'INSERT INTO lista VALUES '+
+		`(${req.body.userID}, ${req.body.beerID});`;
+
+	(async() => {
+		try{
+			await conn.query(sql, (err, result) => {
+				res.send(result);
+			});
+		}catch(err){
+			logError(err, 'list METHOD POST');
+		}
+	})();
 });
 //Console log the error
 function logError (err, route){
