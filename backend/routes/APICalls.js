@@ -105,13 +105,34 @@ router.delete('/beer', function(req,res){
 				res.send(result);
 			});
 		}catch(err){
-			console.log(err);
+			logError(err, 'beer METHOD: DELETE ; QUERY 2');
 		}
 	})();
 	console.log(sql);
 });
 
+router.get('/list', function(req,res){
+	let q = url.parse(req.url, true).query;
+	let sql = 'SELECT olut.id, olut.nimi, olut.kuvaus, olut.maku, tyyppi.nimi, olut.kuvaURL FROM olut, tyyppi '+
+	`WHERE Olut.id IN (
+		SELECT olutID FROM lista WHERE userID = ${q.userID}
+	)AND tyyppi.id = olut.tyyppi;
+	`;
+	console.log(sql);
+	(async () => {
+		try{
+			await conn.query(sql, (err, result) => {
+				res.send(result);
+			});
+		}catch(err){
+			logError(err, '/list?userID=');
+		}
+	})();
+});
 
+/**
+ * ADD TO USER LISTS
+ */
 router.post('/list', function(req, res){
 	let sql = 'INSERT INTO lista VALUES '+
 		`(${req.body.userID}, ${req.body.beerID});`;
