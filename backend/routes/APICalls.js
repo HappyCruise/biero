@@ -4,7 +4,10 @@ let conn = require('../database');
 const url = require('url');
 
 
-/*GET ALL BEERS*/
+/**
+ * Get all beers
+ * METHOD: GET
+ */
 router.get('/beers', function(req,res){
 	let sql = 'SELECT * FROM Olut';
 	(async() => {
@@ -18,7 +21,11 @@ router.get('/beers', function(req,res){
 	})();
 });
 
-/* GET BEER BY PARAM */
+/**
+ * Get beer by parameter
+ * METHOD: GET
+ * @req.url param parameter to search beer with
+ */
 router.get('/beer', function(req,res) {
 	let q = url.parse(req.url, true).query;
 	let sql = 'SELECT * FROM Olut WHERE ';
@@ -43,7 +50,10 @@ router.get('/beer', function(req,res) {
 
 });
 
-/*GET ALL BEER TYPES*/
+/**
+ * Get all beer types
+ * METHOD: GET
+ */
 router.get('/beer/types', function(req,res){
 	let sql = 'SELECT * FROM Tyyppi';
 	(async() => {
@@ -60,7 +70,15 @@ router.get('/beer/types', function(req,res){
 });
 
 
-/*UPDATE BEER*/
+/**
+ * Update Beer with given data
+ * METHOD: PUT
+ * @body.nimi beer name
+ * @body.kuvaus beer description
+ * @body.maku beer taste
+ * @body.tyyppi beer type
+ * @body.id beer ID
+ */
 router.put('/beer', function(req,res){
 
 	let sql = 'UPDATE olut SET '+
@@ -80,7 +98,11 @@ router.put('/beer', function(req,res){
 
 });
 
-/* DELETE BEER */
+/**
+ * Delete beer with given ID in url parameters
+ * METHOD: DELETE
+ * @req.url id ;Beerid to be deleted
+ */
 router.delete('/beer', function(req,res){
 	let q = url.parse(req.url, true).query;
 	if(!q.id){
@@ -111,6 +133,12 @@ router.delete('/beer', function(req,res){
 	console.log(sql);
 });
 
+
+/**
+ * gets the list with userID param
+ * METHOD: GET
+ * @req.url ?param=userID
+ */
 router.get('/list', function(req,res){
 	let q = url.parse(req.url, true).query;
 	let sql = 'SELECT olut.id, olut.nimi, olut.kuvaus, olut.maku, tyyppi.nimi, olut.kuvaURL FROM olut, tyyppi '+
@@ -131,7 +159,10 @@ router.get('/list', function(req,res){
 });
 
 /**
- * ADD TO USER LISTS
+ * Add to users list
+ * METHOD: POST
+ * @body.userID id of user
+ * @body.beerID id of beer
  */
 router.post('/list', function(req, res){
 	let sql = 'INSERT INTO lista VALUES '+
@@ -147,7 +178,12 @@ router.post('/list', function(req, res){
 		}
 	})();
 });
-//Console log the error
+
+/**
+ * Console log the error
+ * @param err	error
+ * @param route	which route was called
+ */
 function logError (err, route){
 	console.log('DATABASE ERROR ACCESSING api/'+route);
 	console.log(err);

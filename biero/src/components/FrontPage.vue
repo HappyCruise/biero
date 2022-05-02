@@ -1,6 +1,6 @@
 <template>
 <div>
-  <button @click="toggleAdmin">Admin Mode</button>
+
   <SearchForm @getBeer="findBeer" :searchTitle="title" />
   <BeerList :beers="beers" :adminMode="adminMode" />
 
@@ -21,7 +21,8 @@ export default {
 		return {
 			beers: [],
 			numberOfBeers: null,
-			adminMode: true
+			adminMode: false,
+			modeButtonText: 'User',
 		};
 	},
 	methods:{
@@ -30,6 +31,9 @@ export default {
 			this.beers = foundBeers;
 			this.numberOfBeers = foundBeers.length;
 		},
+		/**
+     * Toggle the admin mode and change the button text
+     */
 		toggleAdmin(){
 			this.adminMode = !this.adminMode;
 		},
@@ -42,6 +46,31 @@ export default {
 	}
 };
 </script>
-<style>
+<style scoped>
+#button-container{
+  margin-left: auto;
+}
+#modeButton{
+  border-radius: 30%;
+  color: Black;
+  height: 40px;
+  width: 60px;
+  text-align: center;
+}
+.userButton{
+  background-color: lightskyblue;
+  animation: toggleUser 2s 1;
+  animation-direction: normal;
+}
 
+.adminButton {
+  background-color: lightcoral;
+  animation: toggleUser 2s 1;
+  animation-direction: reverse;
+}
+
+@keyframes toggleUser {
+ 0% {background-color: lightcoral;}
+ 100% {background-color: lightskyblue;}
+}
 </style>

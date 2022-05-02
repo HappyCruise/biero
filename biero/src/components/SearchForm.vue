@@ -3,8 +3,8 @@
     <form onsubmit="return false">
       <h2 id="title">{{ searchTitle }}</h2>
       <label for="helloInput">{{searchParam}}</label>
-      <input id="helloInput" v-model="searchParam" />
-      <button @click="$emit('getBeer', searchParam)">Get Beer</button>
+      <input id="helloInput" v-model="searchParam" placeholder="Etsi oluita"/>
+      <button @click="$emit('getBeer', searchParam)">Hae</button>
     </form>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 	},
 	data(){
 		return{
-			searchParam: 'Hello'
+			searchParam: ''
 		};
 	}
 };
