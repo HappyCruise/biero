@@ -1,15 +1,15 @@
 <template>
   <div id="header">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div id="header-container">
 
     <div id="button-container">
       <button class="button imgButton" @click="showOwnList">
+        <!-- Icon from https://icons8.com/  -->
         <img id="button-image" :src="require(`@/assets/listIcon.png`)" />
       </button>
 
       <div class="toggle-button-container">
-        <label for="modeButton">{{ modeButtonText}}</label>
+        <label id="modeText" for="modeButton">{{ modeButtonText}}</label>
         <button @click="toggleAdminMode"  class="button" id="modeButton" :class="{ adminButton: adminMode, userButton: !adminMode }"></button>
       </div>
 
@@ -65,21 +65,18 @@ export default{
 }
 #button-container{
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding-right: 1rem;
+  padding: 0 10px;
 
 }
 .button{
   border-radius: 15%;
-
   height: 25px;
   width: 50px;
-
+  background-color: lightgray;
 }
 .toggle-button-container{
-  background-color: goldenrod;
   border-radius: 3px;
   color: black;
   height: 25px;
@@ -88,9 +85,10 @@ export default{
   display: flex;
   align-items: center;
   align-items: center;
-  justify-content: space-between;
+
   font-family: "Bahnschrift";
   font-size:large;
+  background-color: lightgray;
 
 }
 #modeButton{
@@ -98,11 +96,16 @@ export default{
   height: 15px;
   border-radius: 50%;
   border: 1px solid gray;
+
 }
 .adminButton{
   background-color: red;
 }
 .userButton{
   background-color: lawngreen;
+}
+#modeText{
+  flex: 1;
+  text-align: left;
 }
 </style>

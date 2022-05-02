@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <SearchForm @getBeer="findBeer" :searchTitle="title" />
+  <SearchForm id="searchForm" @getBeer="findBeer" :searchTitle="title" />
   <BeerList :beers="beers" :adminMode="adminMode" />
 
 </div>
@@ -47,30 +47,7 @@ export default {
 };
 </script>
 <style scoped>
-#button-container{
-  margin-left: auto;
-}
-#modeButton{
-  border-radius: 30%;
-  color: Black;
-  height: 40px;
-  width: 60px;
-  text-align: center;
-}
-.userButton{
-  background-color: lightskyblue;
-  animation: toggleUser 2s 1;
-  animation-direction: normal;
-}
-
-.adminButton {
-  background-color: lightcoral;
-  animation: toggleUser 2s 1;
-  animation-direction: reverse;
-}
-
-@keyframes toggleUser {
- 0% {background-color: lightcoral;}
- 100% {background-color: lightskyblue;}
+#searchForm{
+  margin-bottom: 30px;
 }
 </style>

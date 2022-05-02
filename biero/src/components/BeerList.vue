@@ -1,6 +1,7 @@
 <template>
-  <div>
-  <table>
+  <div id="beerList">
+  <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
+  <table id="beerTable">
     <thead>
       <th>ID</th>
       <th>Nimi</th>
@@ -16,14 +17,13 @@
         <td> {{ beer.kuvaus }}</td>
         <td> {{beer.maku }}</td>
         <td> {{beer.tyyppi}}</td>
-        <img class="olut-img" :src=beer.kuvaURL >
+        <img id="olutImg" :src=beer.kuvaURL >
 
         <button v-if="adminMode" @click="editBeer(beer.id)">Edit</button>
         <button v-if="adminMode" @click="deleteBeer(beer.id)">Delete</button>
         <button v-else @click="addToList">Add to List</button>
 
       </tr>
-      <ConfirmBox @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
       <p v-if="beers.length">Beers found: {{ beers.length }}</p>
       <p v-if="beers.length === 0">No beers found!</p>
     </tbody>
@@ -74,8 +74,17 @@ export default{
 
 </script>
 <style scoped>
-.olut-img{
-  width: 20px;
-
+#beerList{
+  position: relative;
+  display: inline-block;
 }
+#olutImg{
+  width: 20px;
+}
+#confirmBox{
+  position: absolute;
+  left: 20%;
+  top: 0;
+}
+
 </style>

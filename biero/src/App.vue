@@ -24,7 +24,12 @@ export default {
 </script>
 
 <style>
-
+/* Mobile */
+@media (max-width: 480px){
+  #app{
+    width: 320px;
+  }
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,5 +39,7 @@ export default {
   margin: 60px auto;
   width: 720px;
   padding: 10px;
+  min-height: 100vh;
 }
+
 </style>
