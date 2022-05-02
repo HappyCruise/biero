@@ -1,4 +1,5 @@
 # biero
+This is the Vue frontend
 
 ## Project setup
 ```
