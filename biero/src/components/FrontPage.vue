@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="frontPageContainer">
 
   <SearchForm id="searchForm" @getBeer="findBeer" :searchTitle="title" />
   <BeerList :beers="beers" :adminMode="adminMode" />
@@ -48,6 +48,13 @@ export default {
 </script>
 <style scoped>
 #searchForm{
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+#frontPageContainer{
+  min-height: 80vh;
+
+  margin: 60px auto;
+  width: 720px;
+  padding: 10px;
 }
 </style>

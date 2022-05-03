@@ -34,15 +34,15 @@ export default {
 #title{
   font-family: Bahnschrift;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 5rem;
   color: goldenrod;
+  margin-bottom: 10px;
 }
 #searchBar{
   display: flex;
   position: relative;
   flex-direction: row;
   align-items: center;
-  /*justify-content: center;*/
 }
 #searchButton{
   background: none;

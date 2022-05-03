@@ -1,9 +1,9 @@
 <template>
   <div v-if="isVisible" class="confirmContainer">
-    <h3>BEER {{beerID}} WILL BE DELETED, CONTINUE?</h3>
+    <h3>POISTA OLUT {{beerID}}?</h3>
     <div id="button-container">
-      <button @click="handleClick(true)" class="button">YES</button>
-      <button @click="handleClick(false)" class="button">NO</button>
+      <button @click="handleClick(true)" class="button">KYLLÄ</button>
+      <button @click="handleClick(false)" class="button">EI</button>
     </div>
   </div>
 </template>

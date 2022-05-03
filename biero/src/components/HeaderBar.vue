@@ -6,6 +6,7 @@
       <button class="button imgButton" @click="showOwnList">
         <!-- Icon from https://icons8.com/  -->
         <img id="button-image" :src="require(`@/assets/listIcon.png`)" />
+        <span>Oma Lista</span>
       </button>
 
       <div class="toggle-button-container">
@@ -62,6 +63,14 @@ export default{
 .imgButton{
   padding: 0;
   border: none;
+  background: none !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.imgButton span{
+  font-size: smaller;
+  padding-left: 5px;
 }
 #button-container{
   display: flex;
