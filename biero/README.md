@@ -1,4 +1,4 @@
-# biero
+npm in# biero
 
 ## Project setup
 ```

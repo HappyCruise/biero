@@ -9,9 +9,6 @@ VALUES( NULL, "Karhu", "Se klassine jumaltenjuoma", "iha ok", 2, "https://reddit
 INSERT INTO Users
 VALUES(NULL, "admin", "admin1234");
 
-INSERT INTO Lista 
-VALUES(1, 3),(1, 1);
-
 SELECT * FROM Tyyppi;
 SELECT * FROM Olut;
 SELECT * FROM Users;
