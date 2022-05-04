@@ -4,7 +4,7 @@
 
   <div id="beersFoundContainer">
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
-    <p v-if="noBeers">Oluita ei löytynyt.</p>
+    <p v-else>Oluita ei löytynyt.</p>
   </div>
     <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
     <button v-if="adminMode" @click="createBeer()">Create</button>
