@@ -1,4 +1,5 @@
 <template>
+
   <div id="beerList">
   <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
   <div id="beersFoundContainer">
@@ -6,6 +7,9 @@
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
   <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
+
+    <BeerCreate v-if="createMode" @createDone="createMode = false" />
+
   <table id="beerTable" v-else-if="beers.length">
     <thead id="beerTableHead">
     <tr class="row">
@@ -31,10 +35,12 @@
         <td id="buttonContainer">
           <button class="adminButton" v-if="adminMode" @click="editBeer(beer.id)">Muokkaa</button>
           <button class="adminButton deleteButton" v-if="adminMode" @click="deleteBeer(beer.id)">Poista</button>
-          <button v-else @click="addToList" id="addtoListButton">
+          <button v-else @click="addToList(beer.id)" id="addtoListButton">
             <!-- Icon from   https://icons8.com/          -->
             <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
           </button>
+          <button v-if="adminMode" @click="createBeer()">Create</button>
+          <button @click="deleteFromList(beer.id)">Delete from list</button>
         </td>
         <td>
           <button id="imageButton">
@@ -49,32 +55,31 @@
 <script>
 
 import BeerEdit from '@/components/BeerEdit';
+import BeerCreate from '@/components/BeerCreate';
 import { deleteBeer } from '@/js/DatabaseCaller';
 import ConfirmBox from '@/components/ConfirmBox';
+import { addToList } from '@/js/DatabaseCaller';
+import { deleteFromList } from '@/js/DatabaseCaller';
 export default{
 	name: 'BeerList',
-	components: {ConfirmBox, BeerEdit},
+	components: {ConfirmBox, BeerEdit, BeerCreate},
 	props: {
 		beers: Array,
-		adminMode: Boolean,
+		adminMode: Boolean
 	},
 	data(){
 		return {
+			createMode: false,
 			editMode: false,
 			beerToEdit: {},
 			beerToDelete: null,
-			noBeers: false,
+			beerOffList: null
 		};
 	},
-	watch: {
-		beers(newVal){
-			if(newVal.length === 0)
-				this.noBeers = true;
-			else
-				this.noBeers = false;
-		}
-	},
 	methods: {
+		createBeer() {
+			this.createMode = true;
+		},
 		editBeer(id){
 			this.beerToEdit= this.beers[id -1];
 			this.editMode = true;
@@ -92,21 +97,11 @@ export default{
 			let confirm = this.$refs.confirm;
 			confirm.open();
 		},
-		toggleLargeRow(id){
-			let listBody = document.getElementById('beerListBody');
-			let targetRow;
-			let rowValue;
-			for(let row of listBody.rows){
-				rowValue = row.firstChild.innerText;
-				if(rowValue == id){
-					targetRow = row;
-				}
-			}
-			targetRow.classList.toggle('beerRow-large');
-			console.log(targetRow);
-		/*	let targetRow = this.$refs['beerRow'+id];
-			console.log(targetRow);
-*/
+		addToList(id) {
+			addToList(1, id);
+		},
+		deleteFromList(id) {
+			deleteFromList(id);
 		}
 	}
 };

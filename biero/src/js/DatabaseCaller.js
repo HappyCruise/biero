@@ -23,12 +23,14 @@ export async function getBeer(value){
  * @param data
  * @returns {Promise<Response<any, Record<string, any>, number>>}
  */
-export async function createBeer(data) {
+export async function createBeer(beerToAdd) {
+	console.log(beerToAdd);
+	console.log(JSON.stringify({beer: beerToAdd}));
 	const response = await fetch('api/beer', {
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'},
-		body: JSON.stringify({beer: data})
-	}); 
+		body: JSON.stringify({beer: beerToAdd}),
+	});
 	return response;
 }
 
@@ -60,20 +62,28 @@ export async function deleteBeer(id){
 
 
 /**
- * Aadd to user lists
+ * Add to user lists
  * @param id
  * @param beer
  * @returns {Promise<Response<any, Record<string, any>, number>>}
  */
-export async function addToList(id, beer){
+export async function addToList(userid, beerid){
 	const response = await fetch('api/list', {
 		method: 'POST',
 		headers: {'Content-Type':'application/json'},
-		body: JSON.stringify({userID: id, beerID: beer}),
+		body: JSON.stringify({userID: userid, beerID: beerid}),
 	});
 	return response;
 }
-
+/**
+ *
+ */
+export async function deleteFromList(id){
+	const response = await fetch(`api/list/?beerID=${id}`, {
+		method: 'DELETE'
+	});
+	return response;
+}
 export async function getList(id){
 	const response = await fetch(`api/list/?userID=${id}`);
 	return response.json();
