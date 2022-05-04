@@ -7,7 +7,7 @@
       <input type="text" placeholder="Maku" v-model="beerToAdd.maku" >
       <input type="number" placeholder="Tyyppi" v-model="beerToAdd.tyyppi">
       <input type="text" placeholder="Kuvan Url" v-model="beerToAdd.kuvaURL">
-      <button type="cancel" @click="close()">Cancel</button>
+      <button type="cancel" @click="$emit('createDone')">Cancel</button>
       <button type="submit" @click="addBeer">Create</button>
     </form>
     <div v-if="failedCreate">
