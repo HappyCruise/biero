@@ -2,11 +2,12 @@
   <div>
     <h3>Create a beer</h3>
     <form onsubmit="return false">
-      <input type="text" v-model="beerToAdd.nimi">
-      <textarea type="text" v-model="beerToAdd.kuvaus"> </textarea>
-      <input type="text" v-model="beerToAdd.maku" >
-      <input type="number" v-model="beerToAdd.tyyppi">
-      <input type="text" v-model="beerToAdd.kuvaURL">
+      <input type="text" placeholder="Nimi" v-model="beerToAdd.nimi">
+      <textarea type="text" placeholder="Kuvaus" v-model="beerToAdd.kuvaus"> </textarea>
+      <input type="text" placeholder="Maku" v-model="beerToAdd.maku" >
+      <input type="number" placeholder="Tyyppi" v-model="beerToAdd.tyyppi">
+      <input type="text" placeholder="Kuvan Url" v-model="beerToAdd.kuvaURL">
+      <button type="cancel" @click="close()">Cancel</button>
       <button type="submit" @click="addBeer">Create</button>
     </form>
     <div v-if="failedCreate">

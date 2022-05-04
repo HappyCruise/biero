@@ -75,7 +75,15 @@ export async function addToList(userid, beerid){
 	});
 	return response;
 }
-
+/**
+ *
+ */
+export async function deleteFromList(id){
+	const response = await fetch(`api/list/?beerID=${id}`, {
+		method: 'DELETE'
+	});
+	return response;
+}
 export async function getList(id){
 	const response = await fetch(`api/list/?userID=${id}`);
 	return response.json();

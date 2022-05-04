@@ -26,6 +26,7 @@
         <button v-if="adminMode" @click="editBeer(beer.id)">Edit</button>
         <button v-if="adminMode" @click="deleteBeer(beer.id)">Delete</button>
         <button v-else @click="addToList(beer.id)">Add to List</button>
+        <button @click="deleteFromList(beer.id)">Delete from list</button>
 
       </tr>
       <ConfirmBox @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
@@ -44,6 +45,7 @@ import BeerCreate from '@/components/BeerCreate';
 import { deleteBeer } from '@/js/DatabaseCaller';
 import ConfirmBox from '@/components/ConfirmBox';
 import { addToList } from '@/js/DatabaseCaller';
+import { deleteFromList } from '@/js/DatabaseCaller';
 export default{
 	name: 'BeerList',
 	components: {ConfirmBox, BeerEdit, BeerCreate},
@@ -57,10 +59,7 @@ export default{
 			editMode: false,
 			beerToEdit: {},
 			beerToDelete: null,
-			beerToList: {
-				userid: 1,
-				beerid:''
-			}
+			beerOffList: null
 		};
 	},
 	methods: {
@@ -86,6 +85,9 @@ export default{
 		},
 		addToList(id) {
 			addToList(1, id);
+		},
+		deleteFromList(id) {
+			deleteFromList(id);
 		}
 	}
 };

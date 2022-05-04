@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 npm in# biero
+=======
+# biero
+This is the Vue frontend
+>>>>>>> 32321a6816cb1819004d549b9dc7288b9ecd8862
 
 ## Project setup
 ```

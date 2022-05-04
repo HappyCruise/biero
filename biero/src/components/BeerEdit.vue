@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3>Edit a beer</h3>
+    <h3>Muokkaa olutta {{ beer.id }}</h3>
     <form onsubmit="return false">
       <input type="text" v-model="updatedBeer.nimi">
       <textarea type="text" v-model="updatedBeer.kuvaus"> </textarea>
       <input type="text" v-model="updatedBeer.maku" >
       <input type="number" v-model="updatedBeer.tyyppi">
       <input type="text" v-model="updatedBeer.kuvaURL">
-      <button type="submit" @click="updateBeer">Update</button>
+      <button type="submit" @click="updateBeer">Päivitä</button>
     </form>
     <div v-if="failedUpdate">
       {{failMessage}}
@@ -43,5 +43,4 @@ export default{
 };
 </script>
 <style scoped>
-
 </style>
