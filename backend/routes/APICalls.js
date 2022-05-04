@@ -84,7 +84,7 @@ router.put('/beer', function(req,res){
 	let sql = 'UPDATE olut SET '+
 	`nimi = '${req.body.nimi}', kuvaus = '${req.body.kuvaus}', `+
 	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi} `+
-	`WHERE olut.id  = ${req.body.id}`;
+	`kuvaURL = '${req.body.kuvaURL}' `+ `WHERE olut.id  = ${req.body.id};`;
 	console.log(sql);
 	(async () => {
 		try{
@@ -97,7 +97,30 @@ router.put('/beer', function(req,res){
 	})();
 
 });
+/**CREATE BEER
+ *
+ *
+ * **/
+router.post('/beer', function(req,res){
 
+	let sql = 'INSERT INTO Olut VALUES (NULL, '+
+		`'${req.body.beer.nimi}', '${req.body.beer.kuvaus}',
+		 '${req.body.beer.maku}', ${req.body.beer.tyyppi},
+		 '${req.body.beer.kuvaURL}');`;
+
+	console.log(sql);
+	(async () => {
+		try{
+			await conn.query(sql, (err, result) => {
+				console.log(result);
+				res.send(result);
+			});
+		}catch(err){
+			logError(err,'beer METHOD: POST');
+		}
+	})();
+
+});
 /**
  * Delete beer with given ID in url parameters
  * METHOD: DELETE
@@ -144,7 +167,8 @@ router.get('/list', function(req,res){
 	let sql = 'SELECT olut.id, olut.nimi, olut.kuvaus, olut.maku, tyyppi.nimi, olut.kuvaURL FROM olut, tyyppi '+
 	`WHERE Olut.id IN (
 		SELECT olutID FROM lista WHERE userID = ${q.userID}
-	)AND tyyppi.id = olut.tyyppi;
+	)AND tyyppi.id = olut.tyyppi
+	ORDER BY Olut.id;
 	`;
 	console.log(sql);
 	(async () => {
@@ -179,6 +203,22 @@ router.post('/list', function(req, res){
 	})();
 });
 
+router.delete('/list', function(req,res){
+	let q = url.parse(req.url, true).query;
+	let sql = `DELETE FROM Lista WHERE olutID = ${q.beerID};`;
+
+	(async () => {
+		try{
+			await conn.query(sql, (err, result) => {
+				res.send(result);
+			});
+		}catch(err){
+			logError(err, 'beerList METHOD: DELETE');
+		}
+
+	})();
+	console.log(sql);
+});
 /**
  * Console log the error
  * @param err	error
