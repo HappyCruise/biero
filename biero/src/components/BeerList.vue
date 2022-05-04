@@ -6,13 +6,13 @@
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
-    <button v-if="adminMode" @click="createBeer()">Create</button>
+
+  <button v-if="adminMode" @click="createBeer()">Create</button>
   <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
+  <BeerCreate v-if="createMode" @createDone="createMode = false" />
 
-    <BeerCreate v-if="createMode" @createDone="createMode = false" />
 
-
-  <table id="beerTable" v-else-if="beers.length">
+  <table id="beerTable" v-else>
     <thead id="beerTableHead">
     <tr class="row">
       <th>ID</th>
@@ -35,13 +35,20 @@
         <td> {{beer.tyyppi}}</td>
 
         <td id="buttonContainer">
-          <button class="adminButton" v-if="adminMode" @click="editBeer(beer.id)">Muokkaa</button>
-          <button class="adminButton deleteButton" v-if="adminMode" @click="deleteBeer(beer.id)">Poista</button>
-          <button v-else @click="addToList(beer.id)" id="addtoListButton">
-            <!-- Icon from   https://icons8.com/          -->
-            <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
-          </button>
-          <button @click="deleteFromList(beer.id)">Delete from list</button>
+          <div id="adminButtonContainer" v-if="adminMode">
+            <button class="adminButton deleteButton" @click="deleteBeer(beer.id)">Poista</button>
+            <button class="adminButton" @click="editBeer(beer.id)">Muokkaa</button>
+          </div>
+          <div id="userButtonContainer" v-else>
+            <button @click="addToList(beer.id)" id="addtoListButton">
+              <!-- Icon from   https://icons8.com/          -->
+              <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
+            </button>
+            <button @click="deleteFromList(beer.id)">
+              <!-- Icon from   https://icons8.com/          -->
+              <img id="removeListIcon" :src="require(`@/assets/removeFromListIcon.png`)"  />
+            </button>
+          </div>
         </td>
         <td>
           <button id="imageButton">
@@ -144,23 +151,13 @@ th{
   padding: 10px 10px
 
 }
-#addListIcon{
-
-}
-.beerRow-small:hover #imageButton{
-
-}
 
 .beerRow-small:hover .description{
   margin: 0;
   white-space: initial;
 }
 .beerRow-small:hover  #buttonContainer{
-  width: 100px;
   display: inline-flex;
-  justify-content: end;
-  align-items: end;
-  gap: 10px;
 }
 
 
@@ -200,13 +197,13 @@ tr td, tr th{
 .beerRow-small:hover{
   background-color: lightgoldenrodyellow;
 }
-.beerRow-small:hover .description{
-  height: 140px;
-  display: inline;
-}
-.beerRow-small:hover #olutImg{
+.beerRow-small:hover, .beerRow-small:hover #olutImg, .beerRow-small:hover  #buttonContainer{
   max-height: 140px;
 }
+.beerRow-small:hover .description{
+  display: inline;
+}
+
 #olutImg{
   max-height: 35px;
 }
