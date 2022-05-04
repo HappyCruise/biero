@@ -6,9 +6,11 @@
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
+    <button v-if="adminMode" @click="createBeer()">Create</button>
   <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
 
     <BeerCreate v-if="createMode" @createDone="createMode = false" />
+
 
   <table id="beerTable" v-else-if="beers.length">
     <thead id="beerTableHead">
@@ -39,7 +41,6 @@
             <!-- Icon from   https://icons8.com/          -->
             <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
           </button>
-          <button v-if="adminMode" @click="createBeer()">Create</button>
           <button @click="deleteFromList(beer.id)">Delete from list</button>
         </td>
         <td>

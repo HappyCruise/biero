@@ -14,7 +14,7 @@ CREATE TABLE Olut(
 	kuvaus VARCHAR(255),
 	maku VARCHAR(15),
 	tyyppi INT NOT NULL,
-	kuvaURL VARCHAR(100),
+	kuvaURL VARCHAR(500),
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( tyyppi ) REFERENCES Tyyppi(id)
 );
