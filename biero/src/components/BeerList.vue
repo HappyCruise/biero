@@ -48,7 +48,6 @@
             <img id="olutImg" :ref="beer.id" :src=beer.kuvaURL >
           </button>
         </td>
-
       </tr>
     </tbody>
   </table>
