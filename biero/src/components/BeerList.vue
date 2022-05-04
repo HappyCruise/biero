@@ -1,19 +1,18 @@
 <template>
 
   <div id="beerList">
-  <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
+
   <div id="beersFoundContainer">
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
-
+    <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
   <button v-if="adminMode" @click="createBeer()">Create</button>
   <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
   <BeerCreate v-if="createMode" @createDone="createMode = false" />
-
-
   <table id="beerTable" v-else>
     <thead id="beerTableHead">
+
     <tr class="row">
       <th>ID</th>
       <th>Nimi</th>
@@ -179,9 +178,9 @@ tr td, tr th{
 }
 
 #confirmBox{
-  position: absolute;
-  left: 25%;
-  top: 0;
+  position: fixed;
+  left: 37%;
+  top: 25%;
 }
 #beersFoundContainer{
   margin: 0;
