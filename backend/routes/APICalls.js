@@ -83,12 +83,13 @@ router.put('/beer', function(req,res){
 
 	let sql = 'UPDATE olut SET '+
 	`nimi = '${req.body.nimi}', kuvaus = '${req.body.kuvaus}', `+
-	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi} `+
+	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi}, `+
 	`kuvaURL = '${req.body.kuvaURL}' `+ `WHERE olut.id  = ${req.body.id};`;
 	console.log(sql);
 	(async () => {
 		try{
 			await conn.query(sql, (err, result) => {
+				console.log(result);
 				res.send(result);
 			});
 		}catch(err){
