@@ -1,19 +1,20 @@
 <template>
 
   <div id="beerList">
-  <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
+
   <div id="beersFoundContainer">
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
-
-  <button v-if="adminMode" @click="createBeer()">Create</button>
-  <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
-  <BeerCreate v-if="createMode" @createDone="createMode = false" />
-
-
+    <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
+    <button v-if="adminMode" @click="createBeer()">Create</button>
+  <div v-if="editMode || createMode">
+    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
+    <BeerCreate v-else-if="createMode" @createDone="createMode = false" />
+  </div>
   <table id="beerTable" v-else>
     <thead id="beerTableHead">
+
     <tr class="row">
       <th>ID</th>
       <th>Nimi</th>
@@ -89,8 +90,14 @@ export default{
 			this.createMode = true;
 		},
 		editBeer(id){
-			this.beerToEdit= this.beers[id -1];
 			this.editMode = true;
+			console.log(id);
+			for(let i=0; i<this.beers.length; i++){
+				if(this.beers[i].id == id){
+					this.beerToEdit = this.beers[i];
+				}
+			}
+			console.log(this.beers);
 		},
 		handleConfirm(response){
 			console.log('CONFIRMATION ' + response);
@@ -179,9 +186,9 @@ tr td, tr th{
 }
 
 #confirmBox{
-  position: absolute;
-  left: 25%;
-  top: 0;
+  position: fixed;
+  left: 37%;
+  top: 25%;
 }
 #beersFoundContainer{
   margin: 0;

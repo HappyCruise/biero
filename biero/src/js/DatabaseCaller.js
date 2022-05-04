@@ -45,6 +45,7 @@ export async function editBeer(data){
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify(data)
 	});
+	console.log(response);
 	return response;
 }
 
