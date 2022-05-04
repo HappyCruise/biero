@@ -5,32 +5,36 @@
     <p v-if="beers.length">Oluita löydetty: {{ beers.length }}</p>
     <p v-if="noBeers">Oluita ei löytynyt.</p>
   </div>
-
-  <table id="beerTable" v-if="beers.length">
+  <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
+  <table id="beerTable" v-else-if="beers.length">
     <thead id="beerTableHead">
-    <tr>
+    <tr class="row">
       <th>ID</th>
       <th>Nimi</th>
       <th>Kuvaus</th>
       <th>Maku</th>
       <th>Tyyppi</th>
       <th></th>
-      <th>Kuva</th>
+      <th></th>
     </tr>
     </thead>
-    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
-    <tbody v-else id="beerListBody">
+
+    <tbody id="beerListBody">
       <!--  Loop trough beers to fill table  -->
-      <tr v-for="beer in beers" :key="beer.id" @click="toggleLargeRow(beer.id)"  class="beerRow-small">
+      <tr v-for="beer in beers" :key="beer.id" class="beerRow-small row">
         <td>{{ beer.id }}</td>
         <td> {{ beer.nimi }}</td>
-        <td> {{ beer.kuvaus }}</td>
+        <td><span class="description"> {{ beer.kuvaus }}</span> </td>
         <td> {{beer.maku }}</td>
         <td> {{beer.tyyppi}}</td>
+
         <td id="buttonContainer">
-          <button v-if="adminMode" @click="editBeer(beer.id)">Edit</button>
-          <button v-if="adminMode" @click="deleteBeer(beer.id)">Delete</button>
-          <button v-else @click="addToList">Add to List</button>
+          <button class="adminButton" v-if="adminMode" @click="editBeer(beer.id)">Muokkaa</button>
+          <button class="adminButton deleteButton" v-if="adminMode" @click="deleteBeer(beer.id)">Poista</button>
+          <button v-else @click="addToList" id="addtoListButton">
+            <!-- Icon from   https://icons8.com/          -->
+            <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
+          </button>
         </td>
         <td>
           <button id="imageButton">
@@ -38,13 +42,8 @@
           </button>
         </td>
 
-
-
       </tr>
-
     </tbody>
-
-
   </table>
   </div>
 </template>
@@ -115,37 +114,78 @@ export default{
 
 </script>
 <style scoped>
-#beerList{
-  position: relative;
+.adminButton{
+  background-color: white;
+  height: 25px;
+  font-size: 0.7rem;
+  box-shadow: 0 0 10px darkgreen;
 }
+.deleteButton{
+  box-shadow: 0 0 8px red;
+}
+.deleteButton:hover{
+  box-shadow: 0 0 4px red inset !important;
+}
+.adminButton:hover{
+  box-shadow: 0 0 4px darkgreen inset;
+}
+
 #beerTable{
   padding: 10px;
   width: 100%;
   border-collapse: collapse;
 }
-thead{
+#beerTableHead tr{
   background: goldenrod;
   width: 100%;
+  border-radius: 25%;
+  overflow: hidden;
+  border-collapse: separate;
 }
-th, td{
-  padding-left: 5px;
+.beerRow-small td{
+  padding: 5px 10px;
+}
+th{
+  padding: 10px 10px
+
+}
+#addListIcon{
+
+}
+.beerRow-small:hover #imageButton{
+
+}
+
+.beerRow-small:hover .description{
+  margin: 0;
+  white-space: initial;
+}
+.beerRow-small:hover  #buttonContainer{
+  width: 100px;
+  display: inline-flex;
+  justify-content: end;
+  align-items: end;
+  gap: 10px;
 }
 
 
+
+
+.description{
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 240px;
+}
 tr td, tr th{
   text-align: left;
 }
 #imageButton{
   background: none;
   border: none;
+}
 
-}
-.beerRow-large #olutImg{
-  max-height: 160px;
-}
-#olutImg{
-  max-height: 35px;
-}
 #confirmBox{
   position: absolute;
   left: 25%;
@@ -156,22 +196,50 @@ tr td, tr th{
   padding: 0;
 }
 #buttonContainer{
-  width: 100px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  display: none;
 }
 
-#buttonContainer button{
-  border-radius: 5px;
-}
 .beerRow-small{
   height: 35px;
 }
-.beerRow-large{
-
+.beerRow-small:hover{
+  background-color: lightgoldenrodyellow;
+}
+.beerRow-small:hover .description{
+  height: 140px;
+  display: inline;
+}
+.beerRow-small:hover #olutImg{
+  max-height: 140px;
+}
+#olutImg{
+  max-height: 35px;
 }
 
+button{
+  border: none;
+  border-radius: 5px;
+}
+
+
+.row th:first-child, .row td:first-child{
+
+  width: 5%;
+}
+.row th:nth-child(2), .row td:nth-child(2){
+
+  width: 10%;
+}
+.row th:nth-child(3), .row td:nth-child(3) {
+  width: 30%;
+}
+.row th:nth-child(4), .row td:nth-child(4) {
+  width: 10%;
+}
+.row th:nth-child(5), .row td:nth-child(5) {
+  width: 10%;
+}
+.row th:nth-child(6), .row td:nth-child(6) {
+  width: 35%;
+}
 </style>

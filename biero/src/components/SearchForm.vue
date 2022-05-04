@@ -1,10 +1,8 @@
 <template>
   <div>
     <h2 id="title">{{ searchTitle }}</h2>
-    <form onsubmit="return false" id="searchBar">
-
-
-      <input id="searchInput" v-model="searchParam" placeholder="Etsi oluita"/>
+    <form onsubmit="return false" id="searchBar" >
+      <input id="searchInput"  v-model="searchParam" placeholder="Etsi oluita"/>
       <button id="searchButton" @click="$emit('getBeer', searchParam)">
         <!-- Icon from https://icons8.com/  -->
         <img id="button-image" :src="require(`@/assets/searchIcon.png`)" />
