@@ -202,7 +202,10 @@ router.post('/list', function(req, res){
 		}
 	})();
 });
-
+/**
+ * DELETE FROM OWN LIST
+ * Method: DELETE
+ */
 router.delete('/list', function(req,res){
 	let q = url.parse(req.url, true).query;
 	let sql = `DELETE FROM Lista WHERE olutID = ${q.beerID};`;
