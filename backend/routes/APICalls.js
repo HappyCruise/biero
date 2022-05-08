@@ -81,19 +81,9 @@ router.get('/beer/types', function(req,res){
  * @body.id beer ID
  */
 router.put('/beer', function(req,res){
-	let type;
-	switch(req.body.type){
-	case 'Tumma': type = 1;
-		break;
-	case 'Vaalea': type = 2;
-		break;
-	case 'IPA': type = 3;
-		break;
-	default: type = 1;
-	}
 	let sql = 'UPDATE olut SET '+
 	`nimi = '${req.body.nimi}', kuvaus = '${req.body.kuvaus}', `+
-	`maku = '${req.body.maku}',  tyyppi = ${type}, `+
+	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi}, `+
 	`kuvaURL = '${req.body.kuvaURL}' `+ `WHERE olut.id  = ${req.body.id};`;
 	console.log(sql);
 	(async () => {

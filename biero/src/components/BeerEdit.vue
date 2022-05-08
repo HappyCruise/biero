@@ -69,7 +69,7 @@ export default{
 			}else{
 				this.updatedBeer.tyyppi = 3;
 			}
-
+			console.log(this.updatedBeer.tyyppi);
 			let response = await editBeer(this.updatedBeer);
 			if(response.status !== 200){
 				this.failedUpdate = true;
