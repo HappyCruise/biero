@@ -15,7 +15,7 @@
       </div>
       <div class="editFormSection">
         <span>Tyyppi</span>
-        <input type="number" v-model="updatedBeer.tyyppi">
+        <input type="text" v-model="updatedBeer.tyyppi">
 
         <span>Kuva URL</span>
         <input type="text" v-model="updatedBeer.kuvaURL">

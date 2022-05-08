@@ -29,15 +29,15 @@ router.get('/beers', function(req,res){
  */
 router.get('/beer', function(req,res) {
 	let q = url.parse(req.url, true).query;
-	let sql = 'SELECT * FROM Olut WHERE ';
+	let sql = 'SELECT olut.id, olut.nimi, olut.kuvaus, olut.maku, tyyppi.nimi AS tyyppi, olut.kuvaURL FROM olut, tyyppi WHERE olut.tyyppi = tyyppi.id AND ';
 
 	if(typeof q.param == 'string'){
 		sql +=
-			`Olut.nimi LIKE '%${q.param}%' OR `+
-			`Olut.tyyppi = (SELECT id FROM tyyppi WHERE nimi LIKE '%${q.param}%')`;
+			`(Olut.nimi LIKE '%${q.param}%' OR Olut.tyyppi LIKE '%${q.param}%')`;
+		//Olut.tyyppi = (SELECT id FROM tyyppi WHERE nimi LIKE '%${q.param}%');
 	}else{
-		sql += `Olut.id = ${q.param}`;
-	}
+		sql += `Olut.id = ${q.param} `;
+	} sql += 'ORDER BY olut.id;';
 
 	(async () => {
 		try{
@@ -81,10 +81,19 @@ router.get('/beer/types', function(req,res){
  * @body.id beer ID
  */
 router.put('/beer', function(req,res){
-
+	let type;
+	switch(req.body.type){
+	case 'Tumma': type = 1;
+		break;
+	case 'Vaalea': type = 2;
+		break;
+	case 'IPA': type = 3;
+		break;
+	default: type = 1;
+	}
 	let sql = 'UPDATE olut SET '+
 	`nimi = '${req.body.nimi}', kuvaus = '${req.body.kuvaus}', `+
-	`maku = '${req.body.maku}',  tyyppi = ${req.body.tyyppi}, `+
+	`maku = '${req.body.maku}',  tyyppi = ${type}, `+
 	`kuvaURL = '${req.body.kuvaURL}' `+ `WHERE olut.id  = ${req.body.id};`;
 	console.log(sql);
 	(async () => {
