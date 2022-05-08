@@ -1,7 +1,9 @@
 <template>
   <div id="beerEdit">
+
     <h3>Muokkaa olutta {{ beer.id }}</h3>
     <form onsubmit="return false" id="editForm">
+
       <div class="editFormSection">
         <span>Nimi</span>
         <input type="text" v-model="updatedBeer.nimi" id="nimi" >
@@ -11,13 +13,13 @@
 
         <span>Kuvaus</span>
         <textarea type="text" v-model="updatedBeer.kuvaus" id="kuvaus"> </textarea>
-
       </div>
+
       <div class="editFormSection">
+
         <span>Tyyppi</span>
         <input type="text" v-model="updatedBeer.tyyppi">
         <select v-model="updatedBeer.tyyppi">
-
           <option value="Tumma">Tumma</option>
           <option value="Vaalea">Vaalea</option>
           <option value="IPA">IPA</option>
@@ -25,6 +27,7 @@
 
         <span>Kuva URL</span>
         <input type="text" v-model="updatedBeer.kuvaURL">
+
         <div id="buttonSection">
           <button type="submit" @click="updateBeer" id="updateButton" >Päivitä</button>
           <button @click="$emit('editDone')" id="returnButton" >
@@ -32,12 +35,13 @@
             <img id="returnImage" :src="require(`@/assets/returnIcon.png`)" />
           </button>
         </div>
-
       </div>
     </form>
+
     <div v-if="failedUpdate">
       {{failMessage}}
     </div>
+
   </div>
 </template>
 <script>
@@ -79,9 +83,7 @@ export default{
 };
 </script>
 <style scoped>
-#beerEdit{
 
-}
 #buttonSection{
   margin-top: 25px;
   display: flex;
