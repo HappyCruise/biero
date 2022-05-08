@@ -16,6 +16,12 @@
       <div class="editFormSection">
         <span>Tyyppi</span>
         <input type="text" v-model="updatedBeer.tyyppi">
+        <select v-model="updatedBeer.tyyppi">
+
+          <option value="Tumma">Tumma</option>
+          <option value="Vaalea">Vaalea</option>
+          <option value="IPA">IPA</option>
+        </select>
 
         <span>Kuva URL</span>
         <input type="text" v-model="updatedBeer.kuvaURL">
@@ -49,8 +55,18 @@ export default{
 			failMessage: ''
 		};
 	},
+	mounted(){
+	},
 	methods: {
 		async updateBeer(){
+			if(	this.updatedBeer.tyyppi === 'Tumma'){
+				this.updatedBeer.tyyppi = 1;
+			}else if(this.updatedBeer.tyyppi === 'Vaalea'){
+				this.updatedBeer.tyyppi = 2;
+			}else{
+				this.updatedBeer.tyyppi = 3;
+			}
+
 			let response = await editBeer(this.updatedBeer);
 			if(response.status !== 200){
 				this.failedUpdate = true;

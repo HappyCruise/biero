@@ -1,8 +1,8 @@
 <template>
 <div id="frontPageContainer">
 
-  <SearchForm id="searchForm" @getBeer="findBeer" :searchTitle="title" />
-  <BeerList :beers="beers" :adminMode="adminMode" />
+  <SearchForm id="searchForm" @getBeer="findBeer" :searchTitle="title"/>
+  <BeerList :beers="beers" :adminMode="adminMode" @getBeer="findBeer" />
 
 </div>
 </template>
@@ -40,6 +40,7 @@ export default {
 		showUsersList: async function(){
 			//TODO: CHANGE 1 TO USER ID
 			let foundList = await getList(1);
+			console.log(foundList);
 			this.beers = foundList;
 			this.numberOfBeers = foundList.length;
 		}

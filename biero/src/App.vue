@@ -22,6 +22,9 @@ export default {
 	setup(){
 		document.body.classList.add('VueBody');
 		console.log('yee');
+	},
+	mounted() {
+		this.$refs.frontPage;
 	}
 
 };

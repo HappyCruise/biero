@@ -9,8 +9,8 @@
     <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
     <button v-if="adminMode" @click="createBeer()">Create</button>
   <div v-if="editMode || createMode">
-    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
-    <BeerCreate v-else-if="createMode" @createDone="createMode = false" />
+    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false; $emit('getBeer', '')" />
+    <BeerCreate v-else-if="createMode" @createDone="createMode = false; $emit('getBeer', '')" />
   </div>
   <table id="beerTable" v-else>
     <thead id="beerTableHead">
@@ -36,11 +36,11 @@
         <td> {{beer.tyyppi}}</td>
 
         <td id="buttonContainer">
-          <div id="adminButtonContainer" v-if="adminMode">
+          <div id="adminButtonContainer" class="buttonInnerContainer" v-if="adminMode">
             <button class="adminButton deleteButton" @click="deleteBeer(beer.id)">Poista</button>
             <button class="adminButton" @click="editBeer(beer.id)">Muokkaa</button>
           </div>
-          <div id="userButtonContainer" v-else>
+          <div id="userButtonContainer" class ="buttonInnerContainer" v-else>
             <button @click="addToList(beer.id)" id="addtoListButton">
               <!-- Icon from   https://icons8.com/          -->
               <img id="addListIcon" :src="require(`@/assets/addToListIcon.png`)"  />
@@ -51,7 +51,7 @@
             </button>
           </div>
         </td>
-        <td>
+        <td id="imageTD">
           <button id="imageButton">
             <img id="olutImg" :ref="beer.id" :src=beer.kuvaURL >
           </button>
@@ -103,6 +103,7 @@ export default{
 			console.log('CONFIRMATION ' + response);
 			if(response === true){
 				deleteBeer(this.beerToDelete);
+				this.$emit('getBeer', '');
 			}else{
 				this.beerToDelete = null;
 			}
@@ -122,8 +123,7 @@ export default{
 };
 
 </script>
-<style scoped>
-.adminButton{
+<style scoped> .adminButton{
   background-color: white;
   height: 25px;
   font-size: 0.7rem;
@@ -138,7 +138,6 @@ export default{
 .adminButton:hover{
   box-shadow: 0 0 4px darkgreen inset;
 }
-
 #beerTable{
   padding: 10px;
   width: 100%;
@@ -156,20 +155,20 @@ export default{
 }
 th{
   padding: 10px 10px
-
 }
-
 .beerRow-small:hover .description{
   margin: 0;
   white-space: initial;
 }
-.beerRow-small:hover  #buttonContainer{
+.beerRow-small:hover #buttonContainer{
   display: inline-flex;
+  height: 100%;
 }
-
-
-
-
+.buttonInnerContainer{
+  display: inline-flex;
+  gap: 5px;
+  padding-right: 10px;
+}
 .description{
   display: inline-block;
   text-overflow: ellipsis;
@@ -184,7 +183,6 @@ tr td, tr th{
   background: none;
   border: none;
 }
-
 #confirmBox{
   position: fixed;
   left: 37%;
@@ -197,36 +195,29 @@ tr td, tr th{
 #buttonContainer{
   display: none;
 }
-
 .beerRow-small{
   height: 35px;
 }
 .beerRow-small:hover{
   background-color: lightgoldenrodyellow;
 }
-.beerRow-small:hover, .beerRow-small:hover #olutImg, .beerRow-small:hover  #buttonContainer{
+.beerRow-small:hover, .beerRow-small:hover #olutImg, .beerRow-small:hover #buttonContainer{
   max-height: 140px;
 }
 .beerRow-small:hover .description{
   display: inline;
 }
-
 #olutImg{
   max-height: 35px;
 }
-
 button{
   border: none;
   border-radius: 5px;
 }
-
-
 .row th:first-child, .row td:first-child{
-
   width: 5%;
 }
 .row th:nth-child(2), .row td:nth-child(2){
-
   width: 10%;
 }
 .row th:nth-child(3), .row td:nth-child(3) {
@@ -241,4 +232,5 @@ button{
 .row th:nth-child(6), .row td:nth-child(6) {
   width: 35%;
 }
+
 </style>
