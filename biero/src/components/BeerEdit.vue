@@ -18,7 +18,6 @@
       <div class="editFormSection">
 
         <span>Tyyppi</span>
-        <input type="text" v-model="updatedBeer.tyyppi">
         <select v-model="updatedBeer.tyyppi">
           <option value="Tumma">Tumma</option>
           <option value="Vaalea">Vaalea</option>
