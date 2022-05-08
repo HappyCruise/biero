@@ -50,4 +50,21 @@ BODY:
 ### METHOD DELETE
 Deletes the beer with given ID
 
-URL = '/api/beer?id=`BEER ID`'
+URL = /api/beer?id=`BEER ID`
+
+## List
+
+### METHOD GET
+Returns all beers from current users list
+
+URL = /api/list?userid=`USER ID`
+
+### METHOD Post
+Adds a beer to users own list
+
+URL = /api/list
+
+### METHOD DELETE
+Deletes the beer from users own list with given beerID
+
+URL = /api/list?id=`BEER ID`

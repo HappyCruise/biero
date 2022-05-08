@@ -108,9 +108,10 @@ router.put('/beer', function(req,res){
 	})();
 
 });
-/**CREATE BEER
- *
- *
+/**
+ * CREATE A BEER
+ * METHOD: POST
+ * @req.url id ;Beerid to be deleted
  * **/
 router.post('/beer', function(req,res){
 
@@ -216,6 +217,7 @@ router.post('/list', function(req, res){
 /**
  * DELETE FROM OWN LIST
  * Method: DELETE
+ * @req.url id ;Beerid to be deleted
  */
 router.delete('/list', function(req,res){
 	let q = url.parse(req.url, true).query;
