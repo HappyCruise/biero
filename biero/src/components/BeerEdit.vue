@@ -15,7 +15,12 @@
       </div>
       <div class="editFormSection">
         <span>Tyyppi</span>
-        <input type="number" v-model="updatedBeer.tyyppi">
+        <select v-model="updatedBeer.tyyppi">
+          <option value="0"></option>
+          <option value="1">Tumma</option>
+          <option value="2">Vaalea</option>
+          <option value="3">IPA</option>
+        </select>
 
         <span>Kuva URL</span>
         <input type="text" v-model="updatedBeer.kuvaURL">
@@ -51,6 +56,7 @@ export default{
 	},
 	methods: {
 		async updateBeer(){
+			console.log('beeredit: ' +this.updatedBeer.tyyppi);
 			let response = await editBeer(this.updatedBeer);
 			if(response.status !== 200){
 				this.failedUpdate = true;

@@ -7,7 +7,6 @@ export async function getAllBeers() {
 	return response.json();
 }
 
-//Returns all beers by given parameter and value
 /**
  * Finds all beers with given search parameter
  * @param value
@@ -40,6 +39,7 @@ export async function createBeer(beerToAdd) {
  * @returns {Promise<Response<any, Record<string, any>, number>>}
  */
 export async function editBeer(data){
+	console.log(data.tyyppi);
 	const response = await fetch('api/beer', {
 		method: 'PUT',
 		headers: {'Content-Type': 'application/json'},

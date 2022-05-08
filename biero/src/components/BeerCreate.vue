@@ -5,7 +5,7 @@
       <input type="text" placeholder="Nimi" v-model="beerToAdd.nimi">
       <textarea type="text" placeholder="Kuvaus" v-model="beerToAdd.kuvaus"> </textarea>
       <input type="text" placeholder="Maku" v-model="beerToAdd.maku" >
-      <input type="number" placeholder="Tyyppi" v-model="beerToAdd.tyyppi">
+      <input type="text" placeholder="Tyyppi" v-model="beerToAdd.tyyppi">
       <input type="text" placeholder="Kuvan Url" v-model="beerToAdd.kuvaURL">
       <button type="cancel" @click="$emit('createDone')">Cancel</button>
       <button type="submit" @click="addBeer">Create</button>

@@ -9,8 +9,8 @@
     <ConfirmBox id="confirmBox" @handleConfirm="handleConfirm" ref="confirm" :beerID="beerToDelete"/>
     <button v-if="adminMode" @click="createBeer()">Create</button>
   <div v-if="editMode || createMode">
-    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false" />
-    <BeerCreate v-else-if="createMode" @createDone="createMode = false" />
+    <BeerEdit v-if="editMode" :beer="beerToEdit" @editDone="editMode = false; $emit('getBeer', '')" />
+    <BeerCreate v-else-if="createMode" @createDone="createMode = false; $emit('getBeer', '')" />
   </div>
   <table id="beerTable" v-else>
     <thead id="beerTableHead">
@@ -51,7 +51,7 @@
             </button>
           </div>
         </td>
-        <td>
+        <td id="imageTD">
           <button id="imageButton">
             <img id="olutImg" :ref="beer.id" :src=beer.kuvaURL >
           </button>
@@ -103,6 +103,7 @@ export default{
 			console.log('CONFIRMATION ' + response);
 			if(response === true){
 				deleteBeer(this.beerToDelete);
+				this.$emit('getBeer', '');
 			}else{
 				this.beerToDelete = null;
 			}
